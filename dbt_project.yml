@@ -25,7 +25,13 @@ models:
   snowflake_experimental:
     staging:
       +materialized: view
+      schema: "{{ env_var('DBT_TRGT_SCHEMA') }}"
+      database: SA_MKN_SANDBOX
     marts:
       +materialized: table
+      schema: "{{ env_var('DBT_TRGT_SCHEMA') }}"
+      database: SA_MKN_SANDBOX_SILVER
     metrics:
       +materialized: table
+      schema: "{{ env_var('DBT_TRGT_SCHEMA') }}"
+      database: SA_MKN_SANDBOX_GOLD
