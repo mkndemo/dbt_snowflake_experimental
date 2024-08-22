@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: SA_MKN_SANDBOX
+    schema: jaffle_shop
+    tables:
+      - name: customers
+      - name: items
+      - name: orders
+      - name: products
+      - name: stores
+      - name: supplies
