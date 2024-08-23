@@ -21,7 +21,7 @@ semantic_models:
         type_params:
           time_granularity: day
       - name: order_total_dim
-        type: categoricalas
+        type: categorical
         expr: order_total
       - name: is_food_order
         type: categorical
