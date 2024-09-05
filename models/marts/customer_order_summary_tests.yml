@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: customer_order_summary
+    description: "A summary of customer orders, including total orders and total amount spent."
+    columns:
+      - name: customer_id
+        description: "The unique identifier for the customer."
+        tests:
+          - not_null
+          - unique
+      - name: name
+        description: "The name of the customer."
+        tests:
+          - not_null
+      - name: total_orders
+        description: "The total number of orders placed by the customer."
+        tests:
+          - not_null
+          - greater_than:
+              value: 0
