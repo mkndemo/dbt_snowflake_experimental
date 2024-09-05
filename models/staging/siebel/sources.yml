@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: siebel
+    database: SA_MKN_SANDBOX
+    schema: demo
+    tables:
+      - name: customers
