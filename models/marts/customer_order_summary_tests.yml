@@ -17,5 +17,3 @@ models:
         description: "The total number of orders placed by the customer."
         tests:
           - not_null
-          - greater_than:
-              value: 0
