@@ -188,7 +188,7 @@ metrics:
       measure: order_total
       window: 1 month
   - name: "cumulative_order_amount_mtd"
-    label: "Cumulative order amountm mtd"    
+    label: "Cumulative order amount mtd"    
     description: "The month to date value of all orders"
     type: cumulative
     type_params:
