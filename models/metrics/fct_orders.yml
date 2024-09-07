@@ -180,8 +180,8 @@ metrics:
     type: cumulative
     type_params:
       measure: order_total
-  - name: "cumulative_order_ammount_l1m"
-    label: "Cumulative order ammount l1m"    
+  - name: "cumulative_order_amount_l1m"
+    label: "Cumulative order amount l1m"    
     description: "Trailing 1 month cumulative order amount"
     type: cumulative
     type_params:
