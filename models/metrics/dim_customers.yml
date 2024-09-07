@@ -41,11 +41,11 @@ metrics:
   - name: "customers"
     description: "Count of customers"
     type: simple
-    label: "customers"
+    label: "Customers"
     type_params:
       measure: customers
   - name: "customers_with_orders"
-    label: "customers_with_orders"
+    label: "Customers with orders"
     description: "Unique count of customers placing orders"
     type: simple
     type_params:
