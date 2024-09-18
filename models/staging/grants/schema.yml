@@ -1,0 +1,6 @@
+models:
+  - name: grants_table_test
+    config:
+      grants:
+        select: ['TRANSFORMER']
+      copy_grants: true
