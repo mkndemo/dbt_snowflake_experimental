@@ -21,6 +21,9 @@ semantic_models:
       - name: totalrevenue
         description: The total amount for each order including taxes.
         agg: sum
+      - name: salesrecords
+        expr: orderid
+        agg: count_distinct
 
 metrics:
 #SIMPLE TYPE METRICS
@@ -30,3 +33,9 @@ metrics:
     label: "Total revenue sales records"
     type_params:
       measure: totalrevenue
+  - name: "salesrecords"
+    description: "Count of salesrecords"
+    type: simple
+    label: "SalesRecords"
+    type_params:
+      measure: salesrecords
