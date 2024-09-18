@@ -21,3 +21,12 @@ semantic_models:
       - name: totalrevenue
         description: The total amount for each order including taxes.
         agg: sum
+
+metrics:
+#SIMPLE TYPE METRICS
+  - name: "totalrevenuesalesorecords"
+    description: "Sotalrevenue for our sales records metric"
+    type: simple
+    label: "Total revenue sales records"
+    type_params:
+      measure: totalrevenue
