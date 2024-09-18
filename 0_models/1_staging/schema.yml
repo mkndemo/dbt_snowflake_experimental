@@ -6,3 +6,4 @@ sources:
     schema: jaffle_shop
     tables:
       - name: SALES_RECORDS_1M
+      
