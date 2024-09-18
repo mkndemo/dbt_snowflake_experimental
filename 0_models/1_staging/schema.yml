@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    database: SA_MKN_SANDBOX
+    schema: jaffle_shop
+    tables:
+      - name: SALES_RECORDS_1M
