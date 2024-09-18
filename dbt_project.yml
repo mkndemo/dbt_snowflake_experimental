@@ -9,7 +9,7 @@ config-version: 2
 # This setting configures which "profile" dbt uses for this project.
 profile: 'default'
 
-model-paths: ["models"]
+model-paths: ["models", "0_models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
