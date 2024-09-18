@@ -11,3 +11,4 @@ sources:
       - name: products
       - name: stores
       - name: supplies
+      - name: SALES_RECORDS_1M
