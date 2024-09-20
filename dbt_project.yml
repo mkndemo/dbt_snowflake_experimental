@@ -22,9 +22,10 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 models:
+  +copy_grants: true
   snowflake_experimental:
     staging:
-      +materialized: view
+      +materialized: table
       schema: "{{ env_var('DBT_TRGT_SCHEMA') }}"
       database: "{% if target.name == 'prod' %} SA_MKN_SANDBOX {% else %} SA_MKN_SANDBOX {% endif %}"
     marts:
