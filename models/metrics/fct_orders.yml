@@ -22,7 +22,7 @@ semantic_models:
           time_granularity: day
       - name: order_total_dim
         type: categorical
-        expr: order_total
+        expr: TOTALREVENUE
       - name: is_food_order
         type: categorical
 
