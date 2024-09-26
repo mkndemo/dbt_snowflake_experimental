@@ -2,7 +2,11 @@
     materialized='incremental',
     unique_key='PK',
     incremental_strategy='merge',
-    on_schema_change='sync_all_columns'
+    on_schema_change='sync_all_columns',
+    constraints={
+        'primary_key': 'PK'
+    },
+    cluster_by=['PK']
 ) }}
 
 -- CTE to get the max updated_at from the target table

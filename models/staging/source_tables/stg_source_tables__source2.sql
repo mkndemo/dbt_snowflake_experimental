@@ -11,7 +11,7 @@ source as (
 renamed as (
 
     select
-        pk,
+        CAST(pk as INTEGER) as pk,
         column_3,
         updated_at
     from source
