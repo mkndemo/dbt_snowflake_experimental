@@ -1,3 +1,4 @@
+-- merge strategy and ability to only update specific columns https://docs.getdbt.com/docs/build/incremental-strategy
 {{ config(
     materialized='incremental',
     unique_key='PK',
@@ -9,7 +10,7 @@
     cluster_by=['PK']
 ) }}
 
--- CTE to get the max updated_at from the target table
+-- create a variable to reuse for the when to update logic for this CTE
 {% if is_incremental() %}
     WITH max_updated_at AS (
         SELECT MAX(updated_at) AS max_updated_at FROM {{ this }}
