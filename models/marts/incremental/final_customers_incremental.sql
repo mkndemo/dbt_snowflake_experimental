@@ -37,9 +37,9 @@ ranked as (
 filtered as (
 
     {% if is_incremental() %}
-        -- For incremental runs, only consider new or updated records
+        -- Only consider records that are new or have been updated since the last run
         select * from ranked
-        where updated_at >= (select max(updated_at) from {{ this }})
+        where updated_at >= (select coalesce(max(updated_at), '1900-01-01') from {{ this }})
     {% else %}
         -- For full refresh, use all records
         select * from ranked
