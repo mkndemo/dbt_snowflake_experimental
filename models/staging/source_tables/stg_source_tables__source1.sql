@@ -211,7 +211,8 @@ renamed as (
         column_197,
         column_198,
         column_199,
-        column_200
+        column_200,
+        updated_at
 
     from source
 

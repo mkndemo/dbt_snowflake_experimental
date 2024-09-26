@@ -13,7 +13,8 @@ renamed as (
     select
         pk,
         column_2,
-        column_4
+        column_4,
+        updated_at
     from source
 
 )
