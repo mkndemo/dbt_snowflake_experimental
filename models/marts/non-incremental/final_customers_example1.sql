@@ -1,12 +1,13 @@
 -- models/marts/final_customers.sql
-{{ config( materialized='table' ) }}
 
 with db1 as (
     select * from {{ ref('stg_customers__db1') }}
 ),
+
 db2 as (
     select * from {{ ref('stg_customers__db2') }}
 ),
+
 merged as (
     select
         coalesce(db1.customer_id, db2.customer_id) as customer_id,
