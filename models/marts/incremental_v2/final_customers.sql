@@ -5,31 +5,64 @@
     on_schema_change='sync_all_columns'
 ) }}
 
-WITH source1 AS (
-    SELECT * FROM {{ ref('source1_incremental') }}
+-- CTE to get the max updated_at from the target table
+{% if is_incremental() %}
+    WITH max_updated_at AS (
+        SELECT MAX(updated_at) AS max_updated_at FROM {{ this }}
+    ),
+{% else %}
+    WITH max_updated_at AS (
+        SELECT TO_TIMESTAMP('1900-01-01 00:00:00') AS max_updated_at
+    ),
+{% endif %}
+
+-- CTEs to identify changed PKs in each source
+changed_source1 AS (
+    SELECT PK
+    FROM {{ ref('source1_incremental') }} s1
+    CROSS JOIN max_updated_at
+    WHERE s1.updated_at > max_updated_at.max_updated_at
+),
+changed_source2 AS (
+    SELECT PK
+    FROM {{ ref('source2_incremental') }} s2
+    CROSS JOIN max_updated_at
+    WHERE s2.updated_at > max_updated_at.max_updated_at
+),
+changed_source3 AS (
+    SELECT PK
+    FROM {{ ref('source3_incremental') }} s3
+    CROSS JOIN max_updated_at
+    WHERE s3.updated_at > max_updated_at.max_updated_at
+),
+changed_source4 AS (
+    SELECT PK
+    FROM {{ ref('source4_incremental') }} s4
+    CROSS JOIN max_updated_at
+    WHERE s4.updated_at > max_updated_at.max_updated_at
 ),
 
-source2 AS (
-    SELECT * FROM {{ ref('source2_incremental') }}
+-- Union all changed PKs
+changed_PKs AS (
+    SELECT PK FROM changed_source1
+    UNION
+    SELECT PK FROM changed_source2
+    UNION
+    SELECT PK FROM changed_source3
+    UNION
+    SELECT PK FROM changed_source4
 ),
 
-source3 AS (
-    SELECT * FROM {{ ref('source3_incremental') }}
-),
-
-source4 AS (
-    SELECT * FROM {{ ref('source4_incremental') }}
-),
-
+-- Base data combining all sources
 combined_data AS (
-
     SELECT
-        s1.pk,
-        s1.column_1,
-        COALESCE(s3.column_2, s1.column_2) AS column_2,
-        COALESCE(s2.column_3, s1.column_3) AS column_3,
-        COALESCE(s3.column_4, s1.column_4) AS column_4,
-        COALESCE(s4.column_5, s1.column_5) AS column_5,
+        s1.PK,
+        s1.Column_1,
+        COALESCE(s3.Column_2, s1.Column_2) AS Column_2,
+        COALESCE(s2.Column_3, s1.Column_3) AS Column_3,
+        COALESCE(s3.Column_4, s1.Column_4) AS Column_4,
+        COALESCE(s4.Column_5, s1.Column_5) AS Column_5,
+        -- Include columns 6 to 199 from source1
         s1.column_6,
         s1.column_7,
         s1.column_8,
@@ -224,17 +257,21 @@ combined_data AS (
         s1.column_197,
         s1.column_198,
         s1.column_199,
-        COALESCE(s4.column_200, s1.column_200) AS column_200,
+        COALESCE(s4.Column_200, s1.Column_200) AS Column_200,
         GREATEST(
             s1.updated_at,
-            s2.updated_at,
-            s3.updated_at,
-            s4.updated_at
-        ) AS updated_at
-    FROM source1 AS s1
-    LEFT JOIN source2 AS s2 ON s1.pk = s2.pk
-    LEFT JOIN source3 AS s3 ON s1.pk = s3.pk
-    LEFT JOIN source4 AS s4 ON s1.pk = s4.pk
+            COALESCE(s2.updated_at, TO_TIMESTAMP('1900-01-01 00:00:00')),
+            COALESCE(s3.updated_at, TO_TIMESTAMP('1900-01-01 00:00:00')),
+            COALESCE(s4.updated_at, TO_TIMESTAMP('1900-01-01 00:00:00'))
+        ) AS updated_at,
+        '{{ invocation_id }}' as batch_id
+    FROM {{ ref('source1_incremental') }} s1
+    LEFT JOIN {{ ref('source2_incremental') }} s2 ON s1.PK = s2.PK
+    LEFT JOIN {{ ref('source3_incremental') }} s3 ON s1.PK = s3.PK
+    LEFT JOIN {{ ref('source4_incremental') }} s4 ON s1.PK = s4.PK
+    {% if is_incremental() %}
+    WHERE s1.PK IN (SELECT PK FROM changed_PKs)
+    {% endif %}
 )
 
 SELECT * FROM combined_data
