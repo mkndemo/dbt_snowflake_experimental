@@ -1,4 +1,6 @@
 -- models/marts/final_customers.sql
+{{ config( materialized='table' ) }}
+
 with db1 as (
     select * from {{ ref('stg_customers__db1') }}
 ),
