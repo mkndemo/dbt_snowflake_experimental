@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: customers
+    database: DWH
+    schema: RAW
+    tables:
+      - name: db1
+      - name: db2
