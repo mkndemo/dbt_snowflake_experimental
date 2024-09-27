@@ -1,18 +1,11 @@
-{{ config( materialized='view' ) }}
+{{ config(
+    materialized='incremental_stream',
+    unique_key=['PK']
+) }}
 
-with 
-
-source as (
-
-    select * from {{ source('source_tables', 'source1') }}
-
-),
-
-renamed as (
-
-    select
-        CAST(pk as INTEGER) as pk,
-        column_1,
+SELECT
+    CAST(PK AS INTEGER) AS PK,
+    column_1,
         column_2,
         column_3,
         column_4,
@@ -212,10 +205,10 @@ renamed as (
         column_198,
         column_199,
         column_200,
-        updated_at
+    updated_at,
+    '{{ invocation_id }}' AS batch_id
+    {{ incr_stream.get_stream_metadata_columns() }}
+FROM {{ incr_stream.stream_source('raw', 'source1') }}
 
-    from source
 
-)
 
-select * from renamed

@@ -1,8 +1,4 @@
 packages:
-  - package: dbt-labs/dbt_utils
-    version: 1.2.0
-  - package: calogica/dbt_date
-    version: 0.7.2
-  - package: dbt-labs/audit_helper
-    version: 0.12.0
-sha1_hash: 4513e3808791e50b2d1931476421ddcbc55be8a2
+  - package: arnoN7/incr_stream
+    version: 1.1.0
+sha1_hash: a18ad0b717bea89a58869be1be56dae03577dfe9
