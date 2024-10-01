@@ -10,5 +10,5 @@ WITH health_data AS (
 
 SELECT *
 FROM health_data
-WHERE cow_temperature > 42
-AND cow_health_status != 'Unhealthy';
+WHERE cow_temperature > 41
+AND cow_health_status != 'Unhealthy'
