@@ -5,6 +5,7 @@ models:
     description: "Stage for IoT sensor data from cows"
     columns:
       - name: cow_temperature
+        description: "This cow temp comes from the sensor they have on the ear, Sensor 57836"
         tests:
           - dbt_expectations.expect_column_values_to_be_between:
               min_value: 30
