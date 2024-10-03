@@ -8,9 +8,6 @@
 
 with source as (
     select * from {{ source('iot', 'iot_sensor_data') }}
-    {% if is_incremental() %}
-        where unique_id not in (select unique_id from {{ this }}) 
-    {% endif %}
 ),
 
 renamed as (
@@ -20,7 +17,8 @@ renamed as (
         event_time,
         cow_id,
         customer_id,
-        temperature as cow_temperature,
+        temperature as cow_temperature_c,
+        temperature as cow_temperature_f,
         activity_level as cow_activity_level,
         health_status as cow_health_status,
 
