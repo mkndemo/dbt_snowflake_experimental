@@ -9,13 +9,8 @@ source as (
 renamed as (
 
     select
-
-        ----------  ids
         id as customer_id,
-
-        ---------- properties
         name
-
     from source
 
 )
