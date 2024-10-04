@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: raw
+    database: dwh
+    tables:
+      - name: source1
+      - name: source10
+      - name: source11
+      - name: source12
+      - name: source13
+      - name: source14
+      - name: source15
+      - name: source16
+      - name: source17
+      - name: source18
+      - name: source19
+      - name: source2
+      - name: source20
+      - name: source21
+      - name: source22
+      - name: source23
+      - name: source24
+      - name: source25
+      - name: source26
+      - name: source27
+      - name: source28
+      - name: source29
+      - name: source3
+      - name: source30
+      - name: source4
+      - name: source5
+      - name: source6
+      - name: source7
+      - name: source8
+      - name: source9
