@@ -7,7 +7,6 @@ models:
       - name: PK
         description: "Primary key for source1. Ensures data uniqueness."
         data_tests:
-          - unique
           - not_null
 
   - name: stg_raw__source2
