@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: stg_raw__source1
+    description: "Source table 1 transformed in staging."
+    columns:
+      - name: PK
+        description: "Primary key for source1. Ensures data uniqueness."
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_raw__source2
+    description: "Source table 2 transformed in staging."
+    columns:
+      - name: PK
+        description: "Primary key for source2. Ensures data uniqueness."
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_raw__source3
+    description: "Source table 3 transformed in staging."
+    columns:
+      - name: PK
+        description: "Primary key for source3. Ensures data uniqueness."
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_raw__source4
+    description: "Source table 4 transformed in staging."
+    columns:
+      - name: PK
+        description: "Primary key for source4. Ensures data uniqueness."
+        data_tests:
+          - unique
+          - not_null
+
+  # Repeat for sources 5 to 30
+
+  - name: stg_raw__source30
+    description: "Source table 30 transformed in staging."
+    columns:
+      - name: PK
+        description: "Primary key for source30. Ensures data uniqueness."
+        data_tests:
+          - unique
+          - not_null
