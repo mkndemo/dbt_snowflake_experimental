@@ -22,7 +22,6 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 models:
-  +copy_grants: true
   snowflake_experimental:
     staging:
       +materialized: table
