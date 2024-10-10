@@ -1,4 +1,3 @@
-
 with
 
 source as (
@@ -16,9 +15,13 @@ renamed as (
         id as supply_id,
         sku as product_id,
 
-        ---------- properties
+        ---------- text
         name as supply_name,
-        (cost / 100.0) as supply_cost,
+
+        ---------- numerics
+        {{ cents_to_dollars('cost') }} as supply_cost,
+
+        ---------- booleans
         perishable as is_perishable_supply
 
     from source

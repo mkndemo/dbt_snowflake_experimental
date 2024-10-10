@@ -13,8 +13,8 @@ renamed as (
         ----------  ids
         id as customer_id,
 
-        ---------- properties
-        name
+        ---------- text
+        name as customer_name
 
     from source
 

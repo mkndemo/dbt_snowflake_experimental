@@ -1,8 +1,8 @@
 version: 2
 
 sources:
-  - name: jaffle_shop_old
-    database: SA_MKN_SANDBOX
+  - name: jaffle_shop
+    database: DWH
     schema: jaffle_shop
     tables:
       - name: customers
@@ -11,4 +11,3 @@ sources:
       - name: products
       - name: stores
       - name: supplies
-      - name: SALES_RECORDS_1M
