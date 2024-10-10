@@ -1,1 +1,0 @@
-select * from {{ ref('stg_jaffle_shop__SALES_RECORDS_1M') }}

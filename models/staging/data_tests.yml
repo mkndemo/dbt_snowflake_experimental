@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_iot__iot_sensor_data
+    description: "Stage for IoT sensor data from cows"
+    columns:
+      - name: cow_temperature
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 30
+              max_value: 404
+              severity: error
+          - dbt_expectations.expect_column_values_to_not_be_null
+
+      - name: cow_health_status
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['Healthy', 'Unhealthy']
+
+  - name: stg_customers
+    description: "Stage for customer data"
+    columns:
+      - name: subscription_level
+        tests:
+          - dbt_expectations.expect_column_values_to_be_in_set:
+              value_set: ['Basic', 'Standard', 'Premium']
