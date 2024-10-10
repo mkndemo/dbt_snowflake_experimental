@@ -21,6 +21,10 @@ renamed as (
 
 
         ---------- derived
+        CASE
+            WHEN regexp_like(lower(description), '.*(oat|oatmilk).*') THEN true
+            ELSE false
+        END AS is_oat_based,
         case
             when type = 'jaffle' then 1
             else 0

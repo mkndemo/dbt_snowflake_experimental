@@ -1,0 +1,19 @@
+# File: models/staging/jaffle_shop/unit_tests.yml
+
+unit_tests:
+  - name: test_stg_jaffle_shop_products_is_oat_based
+    description: "Unit test for stg_jaffle_shop__products model to validate is_oat_based field."
+    model: stg_jaffle_shop__products
+    given:
+      - input: source('jaffle_shop', 'products')
+        rows:
+          - {description: 'Delicious oatmilk latte'}
+          - {description: 'Vanilla ice cream'}
+          - {description: 'Fresh baked oatmeal cookie'}
+          - {description: 'Almond milk latte'}
+    expect:
+      rows:
+        - {product_description: 'Delicious oatmilk latte', is_oat_based: true}
+        - {product_description: 'Vanilla ice cream', is_oat_based: false}
+        - {product_description: 'Fresh baked oatmeal cookie', is_oat_based: true}
+        - {product_description: 'Almond milk latte', is_oat_based: false}
