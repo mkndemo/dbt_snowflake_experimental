@@ -5,17 +5,18 @@ sources:
     database: DWH
     schema: jaffle_shop
     description: "my e-commerce data"
-    freshness: 
-      error_after:
-        count: 2
-        period: day
-      warn_after:
-        count: 1
-        period: day
     tables:
       - name: customers
       - name: items
       - name: orders
+        loaded_at_field: ORDERED_AT
+        freshness: 
+          error_after:
+            count: 5000
+            period: day
+          warn_after:
+            count: 1
+            period: day
       - name: products
       - name: stores
       - name: supplies
