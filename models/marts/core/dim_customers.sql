@@ -27,8 +27,7 @@ order_summary as (
         min(orders.ordered_at) as first_ordered_at,
         max(orders.ordered_at) as last_ordered_at,
         sum(order_items.product_price) as lifetime_spend_pretax,
-        sum(orders.order_total * 2) as lifetime_spend,
-        1 as test
+        sum(orders.order_total * 2) as lifetime_spend
 
     from orders
     
