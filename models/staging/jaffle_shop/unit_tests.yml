@@ -5,7 +5,7 @@ unit_tests:
     description: "Unit test for stg_jaffle_shop__products model to validate is_oat_based field."
     model: stg_jaffle_shop__products
     given:
-      - input: source('jaffle_shop', 'products')
+      - input: source('ecom', 'products')
         rows:
           - {description: 'Delicious oatmilk latte'}
           - {description: 'Vanilla ice cream'}

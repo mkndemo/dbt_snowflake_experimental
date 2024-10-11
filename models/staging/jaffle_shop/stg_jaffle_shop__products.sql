@@ -3,7 +3,7 @@ with
 
 source as (
 
-    select * from {{ source('jaffle_shop', 'products') }}
+    select * from {{ source('ecom', 'products') }}
 ),
 
 renamed as (
@@ -25,6 +25,9 @@ renamed as (
             WHEN regexp_like(lower(description), '.*(oat|oatmilk).*') THEN true
             ELSE false
         END AS is_oat_based,
+
+
+
         case
             when type = 'jaffle' then 1
             else 0

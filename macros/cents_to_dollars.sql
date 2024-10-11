@@ -1,4 +1,4 @@
-{# A basic example for a project-wide macro to cast a column uniformly #}
+{# A basic example for a project-wide macro to cast a column uniformly https://docs.getdbt.com/reference/dbt-jinja-functions/dispatch #}
 
 {% macro cents_to_dollars(column_name) -%}
     {{ return(adapter.dispatch('cents_to_dollars')(column_name)) }}
