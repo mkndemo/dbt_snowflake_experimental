@@ -1,106 +1,46 @@
-
-
-with orders as (
-
-    select * from {{ ref('stg_orders') }}
-
-),
-
-order_items as (
-
-    select * from {{ ref('stg_order_items') }}
+with 
+--test
+orders as (
+    
+    select * from {{ ref('stg_orders')}}
 
 ),
 
-products as (
-
-    select * from {{ ref('stg_products') }}
-
-),
-
-locations as (
-
-    select * from {{ ref('stg_locations') }}
-
-),
-
-supplies as (
-
-    select * from {{ ref('stg_supplies') }}
+order_items_table as (
+    
+    select * from {{ ref('order_items')}}
 
 ),
 
 order_items_summary as (
 
     select
-        order_id,
 
-        count(products.is_food_item) as count_food_items,
-        count(products.is_drink_item) as count_drink_items,
-        count(*) as count_items,
+        order_items.order_id,
 
-        sum(case when products.is_food_item = 1 then product_price else 0 end) as subtotal_drink_items,
-        sum(case when products.is_drink_item = 1 then product_price else 0 end) as subtotal_food_items,
-        sum(product_price) as subtotal_order
+        sum(supply_cost) as order_cost,
+        count(is_food_item) as count_food_items,
+        count(is_drink_item) as count_drink_items
 
-    from order_items
-    join products using (product_id)
-    group by 1
 
-),
+    from order_items_table as order_items
 
-order_supplies_summary as (
-
-    select
-        order_id,
-
-        sum(supplies.supply_cost) as order_cost
-
-    from order_items
-    join supplies using (product_id)
     group by 1
 
 ),
 
 
-joined as (
-
+compute_booleans as (
     select
+
         orders.*,
-
-        order_items_summary.count_food_items,
-        order_items_summary.count_drink_items,
-        order_items_summary.count_items,
-
-        order_items_summary.subtotal_drink_items,
-        order_items_summary.subtotal_food_items,
-        order_items_summary.subtotal_order,
-        order_supplies_summary.order_cost,
-
-        -- rank this order for the customer
-        row_number() over (
-            partition by orders.customer_id
-            order by orders.ordered_at
-        ) as customer_order_index,
-
-        locations.location_name
+        count_food_items > 0 as is_food_order,
+        count_drink_items > 0 as is_drink_order,
+        order_cost
 
     from orders
-    join order_items_summary using (order_id)
-    join order_supplies_summary using (order_id)
-    join locations using (location_id)
-
-),
-
-final as (
-
-    select *,
-        customer_order_index = 1 as is_first_order,
-        count_food_items > 0 as is_food_order,
-        count_drink_items > 0 as is_drink_order
-
-    from joined
-
+    
+    left join order_items_summary on orders.order_id = order_items_summary.order_id
 )
 
-select * from final
+select * from compute_booleans
