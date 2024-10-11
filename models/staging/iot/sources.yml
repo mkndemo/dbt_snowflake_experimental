@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: iot
-    database: SA_MKN_SANDBOX
-    schema: demo
-    tables:
-      - name: iot_sensor_data
