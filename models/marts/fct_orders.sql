@@ -1,12 +1,12 @@
 with 
---test
+
 orders as (
     
     select * from {{ ref('stg_orders')}}
 
 ),
 
-order_items_table as (
+order_items as (
     
     select * from {{ ref('order_items')}}
 
@@ -23,7 +23,7 @@ order_items_summary as (
         count(is_drink_item) as count_drink_items
 
 
-    from order_items_table as order_items
+    from order_items
 
     group by 1
 

@@ -55,4 +55,3 @@ joined as (
 )
 
 select * from joined
---test

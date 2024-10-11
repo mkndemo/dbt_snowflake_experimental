@@ -6,13 +6,13 @@ customers as (
 
 ),
 
-orders_table as (
+orders as (
 
-    select * from {{ ref('orders') }}
+    select * from {{ ref('fct_orders') }}
 
 ),
 
-order_items_table as (
+order_items as (
 
     select * from {{ ref('order_items') }}
 ),
@@ -29,9 +29,9 @@ order_summary as (
         sum(order_items.product_price) as lifetime_spend_pretax,
         sum(orders.order_total) as lifetime_spend
 
-    from orders_table as orders
+    from orders
     
-    left join order_items_table as order_items on orders.order_id = order_items.order_id
+    left join order_items on orders.order_id = order_items.order_id
     
     group by 1
 
