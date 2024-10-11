@@ -35,13 +35,13 @@ order_items_summary as (
     select
         order_id,
 
-        sum(products.is_food_item) as count_food_items,
-        sum(products.is_drink_item) as count_drink_items,
+        count(products.is_food_item) as count_food_items,
+        count(products.is_drink_item) as count_drink_items,
         count(*) as count_items,
 
         sum(case when products.is_food_item = 1 then product_price else 0 end) as subtotal_drink_items,
         sum(case when products.is_drink_item = 1 then product_price else 0 end) as subtotal_food_items,
-        sum(product_price) as subtotal
+        sum(product_price) as subtotal_order
 
     from order_items
     join products using (product_id)
@@ -74,7 +74,7 @@ joined as (
 
         order_items_summary.subtotal_drink_items,
         order_items_summary.subtotal_food_items,
-        order_items_summary.subtotal,
+        order_items_summary.subtotal_order,
         order_supplies_summary.order_cost,
 
         -- rank this order for the customer
