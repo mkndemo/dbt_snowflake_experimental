@@ -1,4 +1,21 @@
+##### 1. Models ######
 semantic_models:
+  - name: customers
+    description: This is customer entity
+    model: ref('customers')
+    entities:
+      - name: customer_id
+        type: primary
+
+  
+  - name: locations
+    description: This is store location
+    model: ref('stg_locations')
+    entities:
+      - name: location_id
+        type: primary
+
+  ## ORDERS
   - name: orders
     description: Semantic Model for Orders # description for the users in PowerBi
     defaults:
@@ -11,11 +28,22 @@ semantic_models:
         type: foreign
       - name: customer_id
         type: foreign
+    dimensions:
+      - name: ordered_at
+        expr: date_trunc('day', ordered_at)
+        type: time
+        type_params:
+          time_granularity: day
+    
+    measures:
+      - name: order_total
+        description: The total amount for each order including taxes.
+        agg: sum
 
-
-##### measures ######
-
-
-
-
-
+metrics:
+  - name: "order_total"
+    description: "Sum of orders value"
+    type: simple
+    label: "order_total"
+    type_params:
+      measure: order_total 
