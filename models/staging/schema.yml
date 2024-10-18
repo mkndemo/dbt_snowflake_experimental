@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: This model contains information from our ERP about orders
+
+    columns:
+      - name: order_id
+        description: this a primary key for this model Orders, primary key comes from generated key in our ERP system
+        data_tests:
+            - not_null
