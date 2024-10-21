@@ -13,6 +13,7 @@ renamed as (
         id as order_id,
         store_id as location_id,
         customer as customer_id,
+        1 as newcolumn,
 
         ---------- numerics
         subtotal as subtotal_cents,

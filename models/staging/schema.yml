@@ -9,3 +9,7 @@ models:
         description: this a primary key for this model Orders, primary key comes from generated key in our ERP system
         data_tests:
             - not_null
+
+        constraints:
+          - type: primary_key
+            columns: [order_id]
