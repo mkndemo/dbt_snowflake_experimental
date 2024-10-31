@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: snowplow
+    database: DWH
+    schema: EXTERNAL
+    loader: S3
+
+    tables:
+      - name: raw_customers
+        external:
+          location: "@dwh.external.CUSTOMER_CSV"
+          pattern: 'raw_customers.csv$'
+          file_format: |
+            ( TYPE = 'CSV'
+              FIELD_DELIMITER = ','
+              SKIP_HEADER = 1
+              FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+            )
+        columns:
+          - name: c1
+            data_type: integer
+          - name: c2
+            data_type: varchar
+          - name: c3
+            data_type: varchar
