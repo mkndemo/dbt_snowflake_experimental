@@ -9,8 +9,11 @@ source as (
 renamed as (
 
     select
-        id,
-        name
+        ----------  ids
+        id as customer_id,
+
+        ---------- text
+        name as customer_name
 
     from source
 
