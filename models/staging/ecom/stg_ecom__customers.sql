@@ -8,7 +8,7 @@ source as (
 
 renamed as (
 
-    select
+    select 
         id as customer_id,
         name as full_name
 
