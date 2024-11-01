@@ -25,6 +25,6 @@ final as (
         customer_orders.first_order_date
     from customers
     left join customer_orders using (customer_id)
-),
+)
 
 select * from final
