@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_ecom__customers
+    description: >
+      One record per customer. Note that a customer must have made a purchase to
+      be included in this customer accounts that were created but never
+      used have been filtered out.
+
+    columns:
+      - name: customer_id
+        description: This is the unique primary key for customer table in e-commerce
+        data_tests:
+          - unique
