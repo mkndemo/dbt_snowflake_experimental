@@ -1,4 +1,4 @@
-with
+with 
 
 source as (
 
@@ -8,13 +8,9 @@ source as (
 
 renamed as (
 
-    select
-
-        ----------  ids
+    select 
         id as customer_id,
-
-        ---------- text
-        name as customer_name
+        name as full_name
 
     from source
 

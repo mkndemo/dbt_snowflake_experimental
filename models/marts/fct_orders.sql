@@ -1,46 +1,30 @@
-with 
+--  1. GET ALL CUSTOMERS
+with customers as (
+    select * from {{ ref("stg_ecom__customers") }}
+),
 
+-- 2. GET ALL ORDERS
 orders as (
-    
-    select * from {{ ref('stg_orders')}}
-
+    select * from {{ ref("stg_ecom__orders") }}
 ),
 
-order_items as (
-    
-    select * from {{ ref('order_items')}}
-
-),
-
-order_items_summary as (
-
-    select
-
-        order_items.order_id,
-
-        sum(supply_cost) as order_cost,
-        count(is_food_item) as count_food_items,
-        count(is_drink_item) as count_drink_items
-
-
-    from order_items
-
-    group by 1
-
-),
-
-
-compute_booleans as (
-    select
-
-        orders.*,
-        count_food_items > 0 as is_food_order,
-        count_drink_items > 0 as is_drink_order,
-        order_cost
-
+-- 3. Do some metric calculation or aggregation here
+customer_orders as (
+    select 
+        customer_id, 
+        min(ordered_at) as first_order_date
     from orders
-    
-    left join order_items_summary on orders.order_id = order_items_summary.order_id
+    group by 1
+),
+
+-- 4. Do joins here on customer_id, make sure to get the first_order date
+final as (
+    select 
+        customers.customer_id,
+        customers.full_name,
+        customer_orders.first_order_date
+    from customers
+    left join customer_orders using (customer_id)
 )
 
-select * from compute_booleans
+select * from final
