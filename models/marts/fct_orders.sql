@@ -17,7 +17,7 @@ order_items_summary as (
     select
 
         order_items.order_id,
-
+        2 as newfield,
         sum(supply_cost) as order_cost,
         count(is_food_item) as count_food_items,
         count(is_drink_item) as count_drink_items
